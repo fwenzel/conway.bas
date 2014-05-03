@@ -1,3 +1,4 @@
+DECLARE SUB seedGame ()
 DECLARE SUB drawPoint (x AS INTEGER, y AS INTEGER, col AS INTEGER)
 DECLARE SUB evolveGame ()
 DECLARE SUB drawGame ()
@@ -14,17 +15,9 @@ scale = 4  'n-times zoom
 DIM game(gamewidth, gameheight) AS INTEGER
 
 
-game(1, 1) = 3
-game(2, 1) = 1
-game(2, 2) = 3
-game(3, 1) = 2
-game(3, 2) = 3
-game(10, 1) = 12
-game(11, 1) = 12
-
-
-'Off we go
+'Off we go!
 SCREEN 13
+seedGame
 drawGame
 WHILE INKEY$ = ""
     evolveGame
@@ -105,7 +98,7 @@ FOR y = 1 TO gameheight
            
             'Draw the cell.
             drawPoint INT(x), INT(y), INT(defaultcolor)
-        ELSEIF neighbors(x, y) > 10 THEN
+        ELSEIF neighbors(x, y) >= 10 THEN
             'Blank out previously active cell.
             drawPoint INT(x), INT(y), 0  'black
         END IF
@@ -118,6 +111,34 @@ FOR y = 1 TO gameheight
         game(y, idx) = 0
     END IF
 NEXT y
+
+END SUB
+
+SUB seedGame
+'Add some randomized live cells.
+SHARED gamewidth, gameheight
+SHARED game() AS INTEGER
+
+RANDOMIZE TIMER
+
+'Fill up to 20% of the board.
+livecells = INT(RND * gamewidth * gameheight / 5) + 1
+
+'Remember our position in the game array
+DIM gameidx(gameheight) AS INTEGER
+
+FOR i = 1 TO livecells
+    DO
+        position = INT(RND * gamewidth * gameheight) + 1
+        y = position MOD gamewidth
+    LOOP UNTIL gameidx(y) + 1 < gamewidth  'Don't overfill a line.
+    x = INT(position / gamewidth)
+
+    game(y, gameidx(y) + 1) = x
+
+    'Move to the next spot in this line.
+    gameidx(y) = gameidx(y) + 1
+NEXT i
 
 END SUB
 
