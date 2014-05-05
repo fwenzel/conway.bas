@@ -35,7 +35,7 @@ FOR y = 1 TO gameheight
     IF game(y, 1) <> 0 THEN EXIT SUB
 NEXT y
 
-'No live cells, apparently. So reseed.2
+'No live cells, apparently. So reseed.
 seedGame
 
 END SUB
