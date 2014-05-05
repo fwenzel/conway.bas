@@ -1,4 +1,4 @@
-# Conway's Game of Life in QBASIC
+# Conway's Game of Life in QBasic
 
 May 1, 2014 was the 50th birthday of the [BASIC programming language](https://en.wikipedia.org/wiki/BASIC). What better day to get back to the roots and write a little BASIC code?
 
@@ -11,7 +11,7 @@ This is what it looks like:
 Using
 
 * [DOSBox](http://www.dosbox.com/) and
-* [Microsoft QBASIC](http://en.wikipedia.org/wiki/QBasic)
+* [Microsoft QBasic](http://en.wikipedia.org/wiki/QBasic)
 
 you can run the program yourself, right from QBasic.
 
