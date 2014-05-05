@@ -1,3 +1,4 @@
+DECLARE SUB detectEmpty ()
 DECLARE SUB seedGame ()
 DECLARE SUB drawPoint (x AS INTEGER, y AS INTEGER, col AS INTEGER)
 DECLARE SUB evolveGame ()
@@ -21,7 +22,23 @@ seedGame
 drawGame
 WHILE INKEY$ = ""
     evolveGame
+    detectEmpty
 WEND
+
+SUB detectEmpty
+'detect if game is empty. Reseed if so.
+SHARED gameheight
+SHARED game() AS INTEGER
+
+FOR y = 1 TO gameheight
+    'If there's an active cell, we're done here.
+    IF game(y, 1) <> 0 THEN EXIT SUB
+NEXT y
+
+'No live cells, apparently. So reseed.2
+seedGame
+
+END SUB
 
 SUB drawGame
 'Draw game, from scratch.
