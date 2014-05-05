@@ -1,3 +1,4 @@
+DECLARE SUB indicateCycle ()
 DECLARE SUB detectEmpty ()
 DECLARE SUB seedGame ()
 DECLARE SUB drawPoint (x AS INTEGER, y AS INTEGER, col AS INTEGER)
@@ -21,6 +22,7 @@ SCREEN 13
 seedGame
 drawGame
 WHILE INKEY$ = ""
+    indicateCycle
     evolveGame
     detectEmpty
 WEND
@@ -128,6 +130,23 @@ FOR y = 1 TO gameheight
         game(y, idx) = 0
     END IF
 NEXT y
+
+END SUB
+
+SUB indicateCycle
+'Cycle indicator, flips once per evolution.
+SHARED gamewidth, gameheight
+
+STATIC cycle
+
+'Draw cycle indicator to see things happening
+'even when they are stable.
+drawPoint gamewidth + 1, gameheight + 1, INT(cycle)
+IF cycle > 0 THEN
+    cycle = 0  'black
+ELSE
+    cycle = 14  'yellow
+END IF
 
 END SUB
 
